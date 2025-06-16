@@ -5,7 +5,7 @@ metadata:
   labels:
     app: miapp
 spec:
-  type: NodePort 
+  type: LoadBalancer
   ports:
   - port: 80            # También puedes usar LoadBalancer si tienes un cloud provider o MetalLB
   selector:
