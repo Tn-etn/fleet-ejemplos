@@ -16,5 +16,5 @@ spec:
       - name: miapp
         image: antoneletn/miapp2025:v1  # Cambia por tu imagen real en DockerHub o tu registry
         ports:
-        - containerPort: 80       # Cambia si tu app escucha en otro puerto
+        - containerPort: 3000       # Cambia si tu app escucha en otro puerto
 
