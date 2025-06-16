@@ -7,8 +7,9 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 3000            # También puedes usar LoadBalancer si tienes un cloud provider o MetalLB
+  - port: 3000 
+    targetPort: 3000           # También puedes usar LoadBalancer si tienes un cloud provider o MetalLB
   selector:
     app: miapp
              # Puerto del servicio dentro del clúster
-#    targetPort: 8080     # Puerto del contenedor
+#         # Puerto del contenedor
