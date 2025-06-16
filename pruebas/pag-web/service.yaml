@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: miapp
+  name: miapp-service
   labels:
     app: miapp
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 3000 
-    targetPort: 3000           # También puedes usar LoadBalancer si tienes un cloud provider o MetalLB
+  type: LoadBalancer  # Puedes usar NodePort si no tienes un LoadBalancer
   selector:
     app: miapp
-             # Puerto del servicio dentro del clúster
-#         # Puerto del contenedor
+  ports:
+  - protocol: TCP
+    port: 3000          # Puerto externo que usas para acceder
+    targetPort: 3000    # Puerto en el contenedor
