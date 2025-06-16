@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miapp
+spec:
+  selector:
+    matchLabels:
+      app: miapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: miapp
+    spec:
+      containers:
+      - name: miapp
+        image: antoneletn/miapp2025:v1  # Cambia por tu imagen real en DockerHub o tu registry
+        ports:
+        - containerPort: 80       # Cambia si tu app escucha en otro puerto
+
