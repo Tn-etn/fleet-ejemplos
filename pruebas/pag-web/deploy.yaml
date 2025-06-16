@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: miapp-deployment
+  name: miapp2025-deployment
   labels:
-    app: miapp
+    app: miapp2025
 spec:
-  replicas: 1
+  replicas: 3  # Número de réplicas (pods)
   selector:
     matchLabels:
-      app: miapp
+      app: miapp2025
   template:
     metadata:
       labels:
-        app: miapp
+        app: miapp2025
     spec:
       containers:
-      - name: miapp
-        image: antoneletn/miapp2025:v1  # <-- Cambia si usas otro nombre o registry privado
+      - name: miapp2025-container
+        image: antoneletn/miapp2025:v1  # Imagen de Docker Hub
         ports:
         - containerPort: 3000
