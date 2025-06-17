@@ -1,0 +1,6 @@
+imagen_frontend: putic.work.gd/frontend/gestion-academica:c6395a6d
+ingress:
+  host: gestion-academica.REPLACEME.agetic.gob.bo
+image:
+  repository: putic.work.gd/frontend/gestion-academica
+  tag: 7b60e9d7

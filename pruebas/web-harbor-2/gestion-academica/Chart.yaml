@@ -1,0 +1,4 @@
+apiVersion: v2
+name: gestion-academica
+version: 0.1.0
+description: Helm chart para Gestion Académica
