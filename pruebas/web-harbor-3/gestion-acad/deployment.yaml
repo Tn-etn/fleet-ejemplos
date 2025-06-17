@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gestion-academica
+  labels:
+    app: gestion-academica
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gestion-academica
+  template:
+    metadata:
+      labels:
+        app: gestion-academica
+    spec:
+      containers:
+      - name: web
+        image: putic.work.gd/frontend/gestion-academica@sha256:c7b2eb9d7bf045717a71ce94a16a295e2ceae7a5b05fb9fcbe870657c8922783
+        ports:
+        - containerPort: 3000
+
+
