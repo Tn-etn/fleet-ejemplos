@@ -19,3 +19,9 @@ spec:
           image: putic.work.gd/frontend/gestion-academica@sha256:c7b2eb9d7bf045717a71ce94a16a295e2ceae7a5b05fb9fcbe870657c8922783
           ports:
             - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
