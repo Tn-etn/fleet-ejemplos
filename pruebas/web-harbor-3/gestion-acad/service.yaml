@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: gestion-academica
 spec:
-  type: NodePort
+  type: Loadbalancer
   selector:
     app: gestion-academica
   ports:
