@@ -4,9 +4,9 @@ metadata:
   name: miapp2025-service
 spec:
   selector:
-    app: miapp2025  # Debe coincidir con el label del Deployment
+    app: miapp2025  
   ports:
     - protocol: TCP
-      port: 80       # Puerto externo del LoadBalancer
-      targetPort: 3000  # Puerto del contenedor (Next.js)
-  type: LoadBalancer  # Asigna un IP externa automáticamente
+      port: 80       
+      targetPort: 3000  
+  type: LoadBalancer  
