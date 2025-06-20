@@ -1,0 +1,5 @@
+resources:
+  - postgres-deployment.yaml
+  - postgres-service.yaml
+  - secretproviderclass.yaml
+  - serviceaccount.yaml
