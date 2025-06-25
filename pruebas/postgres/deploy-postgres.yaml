@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: demo
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "postgres-role"
+        vault.hashicorp.com/agent-inject-secret-postgres-env: "kv/org/postgres"
+        vault.hashicorp.com/agent-inject-template-postgres-env: |
+          {{- with secret "kv/org/postgres" -}}
+          export POSTGRES_USER={{ .Data.username }}
+          export POSTGRES_PASSWORD={{ .Data.password }}
+          {{- end }}
+        vault.hashicorp.com/agent-inject-command: "/vault/scripts/set-env.sh"
+    spec:
+      serviceAccountName: postgres-sa
+      containers:
+      - name: postgres
+        image: postgres:14
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            set -a
+            . /vault/secrets/postgres-env
+            set +a
+            docker-entrypoint.sh postgres
+        ports:
+        - containerPort: 5432
