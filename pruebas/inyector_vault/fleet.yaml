@@ -1,0 +1,14 @@
+defaultNamespace: vault
+helm:
+  chart: vault
+  repo: https://helm.releases.hashicorp.com
+  version: 0.30.0
+  releaseName: vault
+  values:
+    injector:
+      enabled: true
+    server:
+      enabled: false
+    externalVault:
+      addr: http://10.188.106.55:8200
+      skipVerify: true
