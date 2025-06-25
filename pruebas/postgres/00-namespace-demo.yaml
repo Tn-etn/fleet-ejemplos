@@ -1,19 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  annotations:
-    cattle.io/status: '{"Conditions":[{"Type":"ResourceQuotaInit","Status":"True","Message":"","LastUpdateTime":"2025-06-23T19:05:08Z"},{"Type":"InitialRolesPopulated","Status":"True","Message":"","LastUpdateTime":"2025-06-23T19:05:08Z"}]}'
-    lifecycle.cattle.io/create.namespace-auth: "true"
-  creationTimestamp: "2025-06-23T19:05:07Z"
-  finalizers:
-  - controller.cattle.io/namespace-auth
-  labels:
-    kubernetes.io/metadata.name: demo
   name: demo
-  resourceVersion: "3093155"
-  uid: cb9cda77-6a63-459a-823c-aa3297a7c7c6
-spec:
-  finalizers:
-  - kubernetes
-status:
-  phase: Active
