@@ -9,6 +9,7 @@ helm:
       enabled: true
       extraEnvironmentVars:
         VAULT_ADDR: "http://10.188.106.55:8200"
+        AGENT_INJECT_VAULT_ADDR: "http://10.188.106.55:8200"
     server:
       enabled: false
     externalVault:
