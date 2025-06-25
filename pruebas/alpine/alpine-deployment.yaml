@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpine-vault
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpine-vault
+  template:
+    metadata:
+      labels:
+        app: alpine-vault
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "demo-role"
+        vault.hashicorp.com/agent-inject-secret-env: "test/secret"
+        vault.hashicorp.com/agent-inject-template-env: |
+          {{- with secret "test/secret" -}}
+          export ENV_VAR_1="{{ .Data.ENV_VAR_1 }}"
+          export ENV_VAR_2="{{ .Data.ENV_VAR_2 }}"
+          {{- end }}
+    spec:
+      serviceAccountName: alpine-sa
+      containers:
+      - name: alpine
+        image: alpine
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            until [ -f /vault/secrets/env ]; do echo "Esperando secretos..."; sleep 1; done
+            source /vault/secrets/env
+            echo "ENV_VAR_1=$ENV_VAR_1"
+            echo "ENV_VAR_2=$ENV_VAR_2"
+            sleep 3600
