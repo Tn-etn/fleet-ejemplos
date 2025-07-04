@@ -27,3 +27,4 @@ spec:
           echo
           env $(cat /vault/secrets/credentials.env) env | grep POSTGRES
           sleep 3600
+---
