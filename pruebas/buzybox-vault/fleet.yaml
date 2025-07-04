@@ -1,4 +1,0 @@
-namespace: prueba01
-resources:
-  - namespace.yaml
-  - busybox-vault.yaml
