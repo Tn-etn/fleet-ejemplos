@@ -1,16 +1,28 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: alpine-prueba
+  name: postgres-dev1
   namespace: prueba01
   labels:
-    app: alpine-prueba
+    app: postgres-dev
+  annotations:
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "devweb-app"
+    vault.hashicorp.com/agent-inject-secret-credentials.env: "secret/data/devwebapp/config"
+    vault.hashicorp.com/agent-inject-template-credentials.env: |
+      {{- with secret "secret/data/devwebapp/config" -}}
+      POSTGRES_USER={{ .Data.data.username }}
+      POSTGRES_PASSWORD={{ .Data.data.password }}
+      {{- end }}
 spec:
+  serviceAccountName: internal-app
   containers:
-    - name: alpine
-      image: alpine:latest
+    - name: postgres
+      image: postgres:15
+      ports:
+        - containerPort: 5432
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo "Alpine en prueba01 ejecutándose sin secretos ni inyecciones"
-          sleep 3600
+          echo "==> Iniciando PostgreSQL con variables desde Vault"
+          env $(cat /vault/secrets/credentials.env) docker-entrypoint.sh postgres
