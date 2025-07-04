@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: busybox-vault
-  namespace: default
+  namespace: prueba01
   labels:
     app: busybox-vault
   annotations:
