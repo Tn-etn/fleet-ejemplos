@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: postgres-dev1
+  name: busybox-vault
   namespace: vault
   labels:
-    app: postgres-dev
+    app: busybox-vault
   annotations:
     vault.hashicorp.com/agent-inject: "true"
     vault.hashicorp.com/role: "devweb-app"
@@ -17,12 +17,12 @@ metadata:
 spec:
   serviceAccountName: internal-app
   containers:
-    - name: postgres
-      image: postgres:15
-      ports:
-        - containerPort: 5432
+    - name: busybox
+      image: busybox
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo "==> Iniciando PostgreSQL con variables desde Vault"
-          env $(cat /vault/secrets/credentials.env) docker-entrypoint.sh postgres
+          echo "==> Mostrando variables inyectadas desde Vault:"
+          cat /vault/secrets/credentials.env
+          echo "==> Ejecutando sleep para mantener el pod activo"
+          sleep 3600
