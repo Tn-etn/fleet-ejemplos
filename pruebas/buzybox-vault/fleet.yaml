@@ -1,5 +1,4 @@
 namespace: fleet-default
 resources:
   - namespace.yaml
-  - serviceaccount.yaml
   - busybox-vault.yaml
