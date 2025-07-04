@@ -6,12 +6,11 @@ metadata:
   labels:
     app: alpine-prueba
 spec:
-  serviceAccountName: internal-app
   containers:
     - name: alpine
       image: alpine:latest
       command: ["/bin/sh", "-c"]
       args:
         - |
-          echo "Alpine levantado correctamente en el namespace prueba01"
+          echo "Alpine en prueba01 ejecutándose sin secretos ni inyecciones"
           sleep 3600
