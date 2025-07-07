@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: backend-sa
+  namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yatic-backend-preprod
+  labels:
+    app: yatic-backend-preprod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yatic-backend-preprod
+  template:
+    metadata:
+      labels:
+        app: yatic-backend-preprod
+      annotations:
+        {{- toYaml .Values.vaultAnnotations | nindent 8 }}
+    spec:
+      serviceAccountName: backend-sa
+      containers:
+        - name: yatic-backend-preprod
+          image: {{ .Values.imagen_backend }}
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo "Cargando variables de Vault..."
+              . /vault/secrets/env_vars.sh
+              echo "Contenido de /app/.env:"
+              cat /app/.env
+              node dist/src/main
+          env:
+            - name: TZ
+              value: "America/La_Paz"
+          volumeMounts:
+            - name: app-volume
+              mountPath: /app
+      volumes:
+        - name: app-volume
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yatic-backend-preprod
+spec:
+  type: LoadBalancer
+  selector:
+    app: yatic-backend-preprod
+  ports:
+    - port: 3000
+      targetPort: 3000
